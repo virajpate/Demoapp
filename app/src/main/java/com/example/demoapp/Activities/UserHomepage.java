@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class UserHomepage extends AppCompatActivity {
@@ -66,7 +68,7 @@ public class UserHomepage extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations= android.R.style.Animation_Dialog;
 
         //Initial dialog variable
-        final EditText date=dialog.findViewById(R.id.et_date);
+        final EditText date=dialog.findViewById(R.id.tv_date);
         final EditText message=dialog.findViewById(R.id.et_message);
         Button submitBtn=dialog.findViewById(R.id.submit_btn);
         RadioGroup radioGroup=dialog.findViewById(R.id.radioGroup);
@@ -74,6 +76,11 @@ public class UserHomepage extends AppCompatActivity {
         final RadioButton female=dialog.findViewById(R.id.female_btn);
 
         //create code
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
+        String datetime=simpleDateFormat.format(calendar.getTime());
+        date.setText(datetime);
+
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override

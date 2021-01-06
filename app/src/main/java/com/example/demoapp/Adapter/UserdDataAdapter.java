@@ -1,6 +1,7 @@
 package com.example.demoapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.demoapp.Activities.RecvFormActivity;
 import com.example.demoapp.R;
 import com.example.demoapp.model.UserForm;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,6 +59,23 @@ public class UserdDataAdapter extends RecyclerView.Adapter<UserdDataAdapter.MyVi
             username=itemView.findViewById(R.id.user_name);
             useremail=itemView.findViewById(R.id.user_email);
             date=itemView.findViewById(R.id.tv_date);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, RecvFormActivity.class);
+                    int position=getAdapterPosition();
+
+                    intent.putExtra("Date",userFormsList.get(position).getDate());
+                    intent.putExtra("Gender",userFormsList.get(position).getGender());
+                    intent.putExtra("Message",userFormsList.get(position).getMessage());
+                    intent.putExtra("userId",userFormsList.get(position).getUserid());
+                    intent.putExtra("username",userFormsList.get(position).getUsername());
+
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

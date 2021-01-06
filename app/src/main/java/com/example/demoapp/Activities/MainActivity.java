@@ -102,11 +102,23 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                if (task.isSuccessful()){
-                   mprogressBar.setVisibility(View.INVISIBLE);
-                   user_btn.setVisibility(View.VISIBLE);
-                   ShowMessage("Signin Successful..!!!");
-                   gotoHomeActivity();
-                   finish();
+                   if (mAuth.getCurrentUser().isEmailVerified()){
+                       assert currentUser!=null;
+                       mprogressBar.setVisibility(View.INVISIBLE);
+                       user_btn.setVisibility(View.VISIBLE);
+                       ShowMessage("Signin Successful..!!!");
+                       gotoHomeActivity();
+                       finish();
+                   }
+                   else
+                   {
+                       ShowMessage("Plese Verify Email...");
+                       mprogressBar.setVisibility(View.INVISIBLE);
+                       user_btn.setVisibility(View.VISIBLE);
+                       mAuth.signOut();
+
+                   }
+
                }
                else
                {

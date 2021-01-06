@@ -196,8 +196,21 @@ public class Register extends AppCompatActivity implements LocationListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-                SetUsername();
-                updateUi(CurrentUser,email);
+              if (task.isSuccessful()){
+                  mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                      @Override
+                      public void onComplete(@NonNull Task<Void> task) {
+                          SetUsername();
+                          updateUi(CurrentUser,email);
+                      }
+                  });
+              }
+              else {
+
+                  Showmessage("Account Created Failed.."+ task.getException().getMessage());
+                  progressBar.setVisibility(View.INVISIBLE);
+                  Btn_reg.setVisibility(View.VISIBLE);
+              }
 
 
             }
